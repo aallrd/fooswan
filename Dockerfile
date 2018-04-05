@@ -42,6 +42,7 @@ RUN dnf -y update \
         findutils \
         info \
         make \
+        cmake \
         autoconf \
         automake \
         binutils \
