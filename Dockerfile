@@ -15,8 +15,75 @@ RUN echo "fastestmirror=true" >> /etc/dnf/dnf.conf \
 # installing basic requirements for this dockerfile
 RUN dnf -y update \
     && dnf -y upgrade \
-    && dnf -y group install "Core" "Development Tools" "Buildsystem building group" \
-    && dnf -y install util-linux-user \
+    && dnf -y install \
+        basesystem  \
+        bash \
+        coreutils \
+        sed \
+        gawk \
+        grep \
+        gzip \
+        tar \
+        unzip \
+        curl \
+        wget \
+        less \
+        sudo \
+        hostname \
+        which \
+        xz \
+        gettext \
+        git \
+        ctags \
+        elfutils \
+        indent \
+        bzip2 \
+        cpio \
+        findutils \
+        info \
+        make \
+        autoconf \
+        automake \
+        binutils \
+        bison \
+        flex \
+        gcc \
+        gcc-c++ \
+        gdb \
+        glibc \
+        glibc-devel \
+        libtool \
+        pkgconf \
+        patch \
+        diffutils \
+        ncurses \
+        util-linux \
+        vim-minimal \
+        audit \
+        filesystem \
+        rootfiles \
+        initscripts \
+        fedora-release \
+        dhcp-client \
+        dnf \
+        dnf-yum \
+        iproute \
+        iputils \
+        kbd \
+        man-db \
+        openssh-clients \
+        openssh-server \
+        passwd \
+        procps-ng \
+        selinux-policy-targeted \
+        setup \
+        sssd-common \
+        sssd-kcm \
+        systemd \
+        rpm \
+        shadow-utils \
+        policycoreutils \
+        util-linux-user \
     && dnf clean all
 
 # configuring hostname and user
