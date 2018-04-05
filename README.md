@@ -11,7 +11,7 @@ A Fedora based development environment using docker.
 ### From Powershell
 
     PS> docker rm --force fooswan >null 2>&1
-    PS> docker run --rm -d -v fooswan:/vol --net=host -h fooswan --name fooswan fooswan
+    PS> docker run --rm -d -v fooswan:/vol --net=host -h fooswan --name fooswan aallrd/fooswan
     # Get the fooswan's container ip address
     PS> docker container exec fooswan zsh -c 'ip route get 1 | awk \"{print \$NF;exit}\"'
     # SSH to this address using Putty
@@ -20,7 +20,7 @@ A Fedora based development environment using docker.
 ### From a Unix shell
 
     $ docker rm --force fooswan >/dev/null 2>&1
-    $ docker run --rm -d -v fooswan:/vol --net=host -h fooswan --name fooswan fooswan
+    $ docker run --rm -d -v fooswan:/vol --net=host -h fooswan --name fooswan aallrd/fooswan
     # Get the fooswan's container ip address
     $ docker container exec fooswan zsh -c 'ip route get 1 | awk "{print \$NF;exit}"'
     # SSH to this address
@@ -38,9 +38,9 @@ In order to start graphical applications, you need to set the DISPLAY variable o
 ### From Powershell
 
     PS> [Environment]::SetEnvironmentVariable("DISPLAY", $env:COMPUTERNAME + ":0.0", "User")
-    PS> docker run --rm -d -v fooswan:/vol --net=host -h fooswan --name fooswan -e DISPLAY=$env:DISPLAY fooswan
+    PS> docker run --rm -d -v fooswan:/vol --net=host -h fooswan --name fooswan -e DISPLAY=$env:DISPLAY aallrd/fooswan
 
 ### From a Unix shell
 
     $ export DISPLAY="$(hostname)"
-    $ docker run --rm -d -v fooswan:/vol --net=host -h fooswan --name fooswan -e DISPLAY="${DISPLAY}" fooswan
+    $ docker run --rm -d -v fooswan:/vol --net=host -h fooswan --name fooswan -e DISPLAY="${DISPLAY}" aallrd/fooswan
