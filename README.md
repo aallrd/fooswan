@@ -8,7 +8,17 @@ A Fedora based development environment using docker.
 
 ## Run
 
-### From Powershell
+### Interactive
+
+    $ docker run --rm -it -v fooswan:/vol -h fooswan --name fooswan aallrd/fooswan zsh
+
+### SSH
+
+This does not work on Macs because [docker cannot route traffic to containers](https://docs.docker.com/docker-for-mac/networking/#i-cannot-ping-my-containers).
+
+The container is started in daemon mode running sshd, you need to ssh to it to open an interactive session.
+
+#### From Powershell
 
     PS> docker rm --force fooswan >null 2>&1
     PS> docker run --rm -d -v fooswan:/vol --net=host -h fooswan --name fooswan aallrd/fooswan
@@ -17,7 +27,7 @@ A Fedora based development environment using docker.
     # SSH to this address using Putty
     PS> putty -load fooswan aallrd@fooswan-container-ip
 
-### From a Unix shell
+#### From a Unix shell
 
     $ docker rm --force fooswan >/dev/null 2>&1
     $ docker run --rm -d -v fooswan:/vol --net=host -h fooswan --name fooswan aallrd/fooswan
@@ -26,7 +36,9 @@ A Fedora based development environment using docker.
     # SSH to this address
     $ ssh aallrd@fooswan-container-ip
 
-## GUI support
+### GUI support
+
+Thanks to the SSH X11 forwarding feature, we can start graphical applications in the container using the host display.
 
 The docker host needs to have an X server running.
 
