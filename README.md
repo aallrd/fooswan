@@ -16,6 +16,12 @@ A Fedora based development environment using docker.
 
 This does not work on Macs because [docker cannot route traffic to containers](https://docs.docker.com/docker-for-mac/networking/#i-cannot-ping-my-containers).
 
+On Windows you may need to add a route to be able to contact the container:
+
+    # 192.168.65.0 is the docker NAT internal subnet
+    # 10.0.75.1 is the the docker NAT external IP
+    route /P add 192.168.65.0 MASK 255.255.255.0 10.0.75.1
+
 The container is started in daemon mode running sshd, you need to ssh to it to open an interactive session.
 
 #### From Powershell
