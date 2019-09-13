@@ -1,3 +1,4 @@
+# vim: set tabstop=2 shiftwidth=2 expandtab:
 FROM fedora:30
 
 ENV USER aallrd
@@ -6,6 +7,8 @@ ENV HOME /home/aallrd
 ENV HOSTNAME fooswan
 ENV TERM screen-256color
 ENV LANG=en_US.utf8
+
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 # avoiding dnf proxy issues
 RUN echo "fastestmirror=true" >> /etc/dnf/dnf.conf \
@@ -16,71 +19,71 @@ RUN echo "fastestmirror=true" >> /etc/dnf/dnf.conf \
 RUN dnf -y update \
     && dnf -y upgrade \
     && dnf -y install \
-        basesystem  \
-        bash \
-        coreutils \
-        sed \
-        gawk \
-        grep \
-        gzip \
-        tar \
-        unzip \
-        curl \
-        wget \
-        less \
-        sudo \
-        hostname \
-        which \
-        xz \
-        gettext \
-        git \
-        ctags \
-        elfutils \
-        indent \
-        bzip2 \
-        cpio \
-        findutils \
-        info \
-        make \
-        cmake \
-        autoconf \
-        automake \
-        binutils \
-        bison \
-        flex \
-        gcc \
-        gcc-c++ \
-        gdb \
-        glibc \
-        glibc-common \
-        glibc-devel \
-        libtool \
-        pkgconf \
-        patch \
-        diffutils \
-        ncurses \
-        util-linux \
-        vim-minimal \
-        audit \
-        filesystem \
-        rootfiles \
-        initscripts \
-        dhcp-client \
-        dnf \
-        dnf-yum \
-        iproute \
-        iputils \
-        kbd \
-        man-db \
-        openssh-clients \
-        openssh-server \
-        passwd \
-        sssd-common \
-        sssd-kcm \
-        systemd \
-        rpm \
-        shadow-utils \
-        util-linux-user \
+      basesystem  \
+      bash \
+      coreutils \
+      sed \
+      gawk \
+      grep \
+      gzip \
+      tar \
+      unzip \
+      curl \
+      wget \
+      less \
+      sudo \
+      hostname \
+      which \
+      xz \
+      gettext \
+      git \
+      ctags \
+      elfutils \
+      indent \
+      bzip2 \
+      cpio \
+      findutils \
+      info \
+      make \
+      cmake \
+      autoconf \
+      automake \
+      binutils \
+      bison \
+      flex \
+      gcc \
+      gcc-c++ \
+      gdb \
+      glibc \
+      glibc-common \
+      glibc-devel \
+      libtool \
+      pkgconf \
+      patch \
+      diffutils \
+      ncurses \
+      util-linux \
+      vim-minimal \
+      audit \
+      filesystem \
+      rootfiles \
+      initscripts \
+      dhcp-client \
+      dnf \
+      dnf-yum \
+      iproute \
+      iputils \
+      kbd \
+      man-db \
+      openssh-clients \
+      openssh-server \
+      passwd \
+      sssd-common \
+      sssd-kcm \
+      systemd \
+      rpm \
+      shadow-utils \
+      util-linux-user \
     && dnf clean all
 
 # configuring hostname and user
@@ -102,5 +105,5 @@ RUN mkdir -p /var/run/sshd \
 ARG CACHEBUST=1
 RUN su - ${USER} -c "$(curl -fsSL https://raw.githubusercontent.com/aallrd/dotfiles/master/bootstrap) && cd ~/dotfiles && make"
 
-ADD start_sshd.sh /root/start_sshd.sh
+COPY start_sshd.sh /root/start_sshd.sh
 CMD ["/root/start_sshd.sh"]
