@@ -1,4 +1,4 @@
-FROM fedora:27
+FROM fedora:30
 
 ENV USER aallrd
 ENV GROUP aallrd
@@ -52,6 +52,7 @@ RUN dnf -y update \
         gcc-c++ \
         gdb \
         glibc \
+        glibc-common \
         glibc-devel \
         libtool \
         pkgconf \
@@ -64,7 +65,6 @@ RUN dnf -y update \
         filesystem \
         rootfiles \
         initscripts \
-        fedora-release \
         dhcp-client \
         dnf \
         dnf-yum \
@@ -75,15 +75,11 @@ RUN dnf -y update \
         openssh-clients \
         openssh-server \
         passwd \
-        procps-ng \
-        selinux-policy-targeted \
-        setup \
         sssd-common \
         sssd-kcm \
         systemd \
         rpm \
         shadow-utils \
-        policycoreutils \
         util-linux-user \
     && dnf clean all
 
@@ -101,8 +97,7 @@ ENV NOTVISIBLE "in users profile"
 RUN mkdir -p /var/run/sshd \
     && sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd \
     && echo "export VISIBLE=now" >> /etc/profile \
-    && ssh-keygen -f /etc/ssh/ssh_host_rsa_key -N '' -t rsa \
-    && ssh-keygen -f /etc/ssh/ssh_host_dsa_key -N '' -t dsa
+    && /usr/bin/ssh-keygen -A
 
 ARG CACHEBUST=1
 RUN su - ${USER} -c "$(curl -fsSL https://raw.githubusercontent.com/aallrd/dotfiles/master/bootstrap) && cd ~/dotfiles && make"
