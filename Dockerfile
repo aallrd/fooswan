@@ -57,6 +57,7 @@ RUN dnf -y update \
       glibc \
       glibc-common \
       glibc-devel \
+      glibc-langpack-en \
       libtool \
       pkgconf \
       patch \
