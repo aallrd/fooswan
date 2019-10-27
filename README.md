@@ -10,7 +10,7 @@ A Fedora based development environment using docker.
 
 ### Interactive
 
-    $ docker run --rm -it -v fooswan:/vol -h fooswan --name fooswan aallrd/fooswan zsh
+    $ docker run --rm -it -v fooswan:/vol -h fooswan --name fooswan aallrd/fooswan zsh -l
 
 ### SSH
 

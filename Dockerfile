@@ -103,8 +103,13 @@ RUN mkdir -p /var/run/sshd \
     && echo "export VISIBLE=now" >> /etc/profile \
     && /usr/bin/ssh-keygen -A
 
-ARG CACHEBUST=1
-RUN su - ${USER} -c "$(curl -fsSL https://raw.githubusercontent.com/aallrd/dotfiles/master/bootstrap) && cd ~/dotfiles && make"
+# switch to runtime user
+USER ${USER}
+WORKDIR ${HOME}
 
-COPY start_sshd.sh /root/start_sshd.sh
-CMD ["/root/start_sshd.sh"]
+ARG CACHEBUST=1
+RUN curl -fsSL https://raw.githubusercontent.com/aallrd/dotfiles/master/bootstrap | bash && cd ~/dotfiles && make
+
+# copy sshd startup script for default behavior
+COPY start_sshd.sh /tmp/start_sshd.sh
+CMD ["/tmp/start_sshd.sh"]
