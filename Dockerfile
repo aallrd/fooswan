@@ -1,12 +1,11 @@
 # vim: set tabstop=2 shiftwidth=2 expandtab:
-FROM fedora:30
+FROM fedora:36
 
 ENV USER aallrd
 ENV GROUP aallrd
 ENV HOME /home/aallrd
 ENV HOSTNAME fooswan
 ENV TERM screen-256color
-ENV LANG=en_US.utf8
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
